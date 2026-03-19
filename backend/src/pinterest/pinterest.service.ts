@@ -1,11 +1,20 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PinterestOAuthService } from '../auth/services/pinterest-oauth.service';
-import type { PinterestPinResponse } from '../auth/types/pinterest.types';
+import type { PinterestBoardResponse, PinterestPinResponse } from '../auth/types/pinterest.types';
 
-type ListPinsOptions = {
+type ListPinterestOptions = {
    accessToken?: string;
    pageSize?: number;
    bookmark?: string;
+};
+
+type AppBoard = {
+   id: string;
+   name: string | null;
+   description: string | null;
+   privacy: string | null;
+   createdAt: string | null;
+   imageUrl: string | null;
 };
 
 type AppPin = {
@@ -23,12 +32,49 @@ export class PinterestService {
       private readonly pinterestOAuthService: PinterestOAuthService,
    ) {}
 
-   async listPins({ accessToken, pageSize, bookmark }: ListPinsOptions) {
+   async listBoards({ accessToken, pageSize, bookmark }: ListPinterestOptions) {
+      if (!accessToken) {
+         throw new UnauthorizedException();
+      }
+
+      const payload = await this.pinterestOAuthService.fetchBoards(accessToken, pageSize, bookmark);
+      const items = (payload.items ?? []).map((board) => this.normalizeBoard(board));
+
+      return {
+         items,
+         bookmark: payload.bookmark ?? null,
+      };
+   }
+
+   async getBoardById(boardId: string, accessToken?: string) {
+      if (!accessToken) {
+         throw new UnauthorizedException();
+      }
+
+      const board = await this.pinterestOAuthService.fetchBoardById(accessToken, boardId);
+      return this.normalizeBoard(board);
+   }
+
+   async listPins({ accessToken, pageSize, bookmark }: ListPinterestOptions) {
       if (!accessToken) {
          throw new UnauthorizedException();
       }
 
       const payload = await this.pinterestOAuthService.fetchPins(accessToken, pageSize, bookmark);
+      const items = (payload.items ?? []).map((pin) => this.normalizePin(pin));
+
+      return {
+         items,
+         bookmark: payload.bookmark ?? null,
+      };
+   }
+
+   async listBoardPins(boardId: string, { accessToken, pageSize, bookmark }: ListPinterestOptions) {
+      if (!accessToken) {
+         throw new UnauthorizedException();
+      }
+
+      const payload = await this.pinterestOAuthService.fetchBoardPins(accessToken, boardId, pageSize, bookmark);
       const items = (payload.items ?? []).map((pin) => this.normalizePin(pin));
 
       return {
@@ -44,6 +90,18 @@ export class PinterestService {
 
       const pin = await this.pinterestOAuthService.fetchPinById(accessToken, pinId);
       return this.normalizePin(pin);
+   }
+
+
+   private normalizeBoard(board: PinterestBoardResponse): AppBoard {
+      return {
+         id: board.id,
+         name: board.name ?? null,
+         description: board.description ?? null,
+         privacy: board.privacy ?? null,
+         createdAt: board.created_at ?? null,
+         imageUrl: this.pickBoardImageUrl(board),
+      };
    }
 
    private normalizePin(pin: PinterestPinResponse): AppPin {
@@ -66,5 +124,20 @@ export class PinterestService {
          .sort((a, b) => (b.width ?? 0) * (b.height ?? 0) - (a.width ?? 0) * (a.height ?? 0));
 
       return variantsWithSize[0]?.url ?? null;
+   }
+
+   private pickBoardImageUrl(board: PinterestBoardResponse) {
+      const rawMedia = board.media;
+      if (!rawMedia || typeof rawMedia !== 'object') {
+         return null;
+      }
+
+      const media = rawMedia as {
+         image_cover_url?: string;
+         cover_image_url?: string;
+         image_cover?: string;
+      };
+
+      return media.image_cover_url ?? media.cover_image_url ?? media.image_cover ?? null;
    }
 }
