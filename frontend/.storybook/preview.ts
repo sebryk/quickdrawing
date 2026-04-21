@@ -1,7 +1,23 @@
-import type { Preview } from '@storybook/react'
+import type { Decorator, Preview } from '@storybook/react'
+import { createElement } from 'react'
 import '../src/styles/global.scss'
+import { setNextNavigationMockState } from '../src/storybook/mocks/next-navigation'
+import { StorybookProviders } from '../src/storybook/storybook-providers'
+
+const withStorybookProviders: Decorator = (Story, context) => {
+   setNextNavigationMockState(context.parameters.nextNavigation)
+
+   return createElement(
+      StorybookProviders,
+      {
+         preloadedState: context.parameters.preloadedState,
+      },
+      createElement(Story),
+   )
+}
 
 const preview: Preview = {
+   decorators: [withStorybookProviders],
    parameters: {
       actions: { argTypesRegex: '^on[A-Z].*' },
       controls: {
@@ -11,6 +27,9 @@ const preview: Preview = {
          },
       },
       layout: 'centered',
+      nextNavigation: {
+         pathname: '/',
+      },
    },
 }
 

@@ -1,10 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { BiChevronRight } from 'react-icons/bi'
+
 import MainButton from './index'
 
-const meta: Meta<typeof MainButton> = {
+const meta = {
    title: 'UI/Buttons/MainButton',
    component: MainButton,
+   tags: ['autodocs'],
    args: {
       children: 'Primary',
       variant: 'primary',
@@ -14,11 +17,11 @@ const meta: Meta<typeof MainButton> = {
    argTypes: {
       onClick: { action: 'clicked' },
    },
-}
+} satisfies Meta<typeof MainButton>
 
 export default meta
 
-type Story = StoryObj<typeof MainButton>
+type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {}
 
@@ -34,5 +37,20 @@ export const WithCustomIcon: Story = {
       children: 'Custom icon',
       icon: BiChevronRight,
       iconPosition: 'left',
+   },
+}
+
+export const AsLink: Story = {
+   args: {
+      children: 'Open gallery',
+      href: '/drawing',
+      target: '_self',
+   },
+}
+
+export const Disabled: Story = {
+   args: {
+      children: 'Disabled',
+      disabled: true,
    },
 }

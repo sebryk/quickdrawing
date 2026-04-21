@@ -1,0 +1,1 @@
+import{c}from"./redux-toolkit.modern-0ojJP4C5.js";const a={value:300,label:"5 min"},n={duration:a},s=c({name:"selectedOptions",initialState:n,reducers:{selectOption:(t,e)=>{if(t&&e.payload){const o=Object.keys(e.payload)[0];t[o]=e.payload[o]}},resetSelectedOptions:()=>({})}}),{selectOption:i,resetSelectedOptions:l}=s.actions,d=s.reducer;export{d as o,l as r,i as s};

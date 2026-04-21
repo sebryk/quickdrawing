@@ -1,8 +1,9 @@
 'use client'
 
+import { useState } from 'react'
+
 import cn from 'classnames'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import { FaPinterest } from 'react-icons/fa'
 
 import { getPinterestAuthUrl } from '@/app/home/actions/get-pinterest-auth-url '
@@ -15,6 +16,7 @@ type StartupCardProps = {
    onQuickSession: () => void
    userSlug: string | null
    className?: string
+   getAuthUrl?: () => Promise<string>
 }
 
 const pinterestIcon = (
@@ -24,7 +26,12 @@ const pinterestIcon = (
    </span>
 )
 
-const StartupCard = ({ onQuickSession, userSlug, className }: StartupCardProps) => {
+const StartupCard = ({
+   onQuickSession,
+   userSlug,
+   className,
+   getAuthUrl = getPinterestAuthUrl,
+}: StartupCardProps) => {
    const { buttons } = data
    const [error, setError] = useState('')
    const [isLoading, setIsLoading] = useState(false)
@@ -34,7 +41,7 @@ const StartupCard = ({ onQuickSession, userSlug, className }: StartupCardProps) 
       setError('')
       setIsLoading(true)
       try {
-         const authUrl = await getPinterestAuthUrl()
+         const authUrl = await getAuthUrl()
          window.location.assign(authUrl)
       } catch {
          setError('Pinterest auth failed. Please try again.')

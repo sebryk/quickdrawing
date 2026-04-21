@@ -1,0 +1,1 @@
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";const e={copyright:"&copy; WAVETAKE"},r="_footer_10rbu_1",s={footer:r},c=()=>{const{copyright:o}=e;return t.jsxs("footer",{className:s.footer,children:[o," ",new Date().getFullYear()]})};c.__docgenInfo={description:"",methods:[],displayName:"Footer"};export{c as F};

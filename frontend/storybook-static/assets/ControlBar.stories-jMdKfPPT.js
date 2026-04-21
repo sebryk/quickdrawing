@@ -1,0 +1,23 @@
+import{b as g,s as i}from"./fixtures-CVDKd118.js";import{j as r}from"./jsx-runtime-D_zvdyIk.js";import{O as S}from"./index-D1kxGfA8.js";import{M as c}from"./index-CgNoAOAF.js";import{a as B,u as P}from"./hooks-BTEbYsiw.js";import{r as w}from"./index-_opbpoMt.js";import"./index-xf0-QVxD.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-DSvP83uV.js";import"./index-CzYbgw1e.js";import"./index-DuyKIudj.js";import"./index-BKX182W5.js";import"./redux-toolkit.modern-0ojJP4C5.js";import"./next-link-DAqOQ1Bk.js";import"./iconBase-TVnof3Ly.js";import"./react-redux-nMrZmOyj.js";const d={mainButton:{title:"Start drawing",href:"/drawing"},secondaryButton:{title:"Reset all"},emptyText:"Select one board to start drawing",selectOption:[{name:"duration",placeholder:"Select duration"}]},C={control:e=>({...e,width:"100%",height:"40px",borderRadius:"1000px",textAlign:"left",paddingLeft:"5px",fontFamily:"Montserrat, sans-serif",fontWeight:"500",backgroundColor:"transparent",border:"1px solid #e6e6e62d",boxShadow:"none",cursor:"pointer",color:"var(--white-color)",transition:"0.3s",":hover":{backgroundColor:"transparent"}}),menu:e=>({...e,borderRadius:"20px",marginTop:"2px",transform:"translateY(calc(-100% - 60px))",backgroundColor:"rgb(49 49 49 / 60%)",border:"1px solid #e6e6e62d;",backdropFilter:"blur(4px)"}),placeholder:(e,t)=>({...e,color:"var(--white-color)",opacity:t.isDisabled?"0.5":"1"}),dropdownIndicator:(e,t)=>{const l=t.selectProps.menuIsOpen;return{...e,transform:l?"rotate(180deg)":"rotate(0deg)",transition:"transform 0.2s",color:"var(--white-color)",opacity:t.isDisabled?"0.5":"1",":hover":{backgroundColor:"none"}}},menuList:e=>({...e,borderRadius:"20px",paddingTop:0,paddingBottom:0}),indicatorSeparator:e=>({...e,display:"none"}),singleValue:e=>({...e,color:"var(--white-color)"}),option:(e,t)=>({...e,color:t.isSelected?"var(--red-color)":"var(--white-color)",backgroundColor:"transparent",textAlign:"left",paddingLeft:"10px",fontFamily:"Montserrat , sans-serif",fontWeight:"500",paddingBlock:"10px",transition:"color 0.2s",":hover":{color:t.isSelected?"var(--red-color)":"var(--light-gray-color)"},border:0,cursor:"pointer"})},j={duration:[{value:300,label:"5 min"},{value:600,label:"10 min"},{value:900,label:"15 min"},{value:1200,label:"20 min"},{value:1500,label:"25 min"},{value:1800,label:"30 min"},{value:2100,label:"35 min"},{value:2400,label:"40 min"},{value:2700,label:"45 min"},{value:3e3,label:"50 min"},{value:3300,label:"55 min"},{value:3600,label:"60 min"}]},a={"control-bar":"_control-bar_13qlm_1","control-bar__reset-button":"_control-bar__reset-button_13qlm_65","control-bar__empty":"_control-bar__empty_13qlm_78","control-bar__start-button":"_control-bar__start-button_13qlm_86","control-bar__select":"_control-bar__select_13qlm_89"},x=()=>{const e=B(),{mainButton:t,secondaryButton:l,selectOption:f}=d,o=f[0],v=P(y=>y.pins.selectedPins.length);return r.jsx("div",{className:a["control-bar"],children:v>0?r.jsxs(r.Fragment,{children:[r.jsx(S,{isVisible:!0,isClearable:!1,name:o.name,customStyles:C,options:j[o.name],placeholder:o.placeholder,className:a["control-bar__select"],children:o.name},o.name),r.jsx(c,{type:"button",variant:"transparent",onClick:()=>e(w()),className:a["control-bar__reset-button"],children:l.title}),r.jsx(c,{href:t.href,className:a["control-bar__start-button"],children:t.title})]}):r.jsx("p",{className:a["control-bar__empty"],children:d.emptyText})})};x.__docgenInfo={description:"",methods:[],displayName:"ControlBar"};const Y={title:"App/User/ControlBar",component:x,tags:["autodocs"],parameters:{layout:"fullscreen"}},n={parameters:{preloadedState:{...g,pins:{pins:i,selectedBoardId:"board-1",selectedPins:i}}}},s={parameters:{preloadedState:{...g,pins:{pins:[],selectedBoardId:null,selectedPins:[]}}}};var p,m,u;n.parameters={...n.parameters,docs:{...(p=n.parameters)==null?void 0:p.docs,source:{originalSource:`{
+  parameters: {
+    preloadedState: {
+      ...basePreloadedState,
+      pins: {
+        pins: storyPins,
+        selectedBoardId: 'board-1',
+        selectedPins: storyPins
+      }
+    }
+  }
+}`,...(u=(m=n.parameters)==null?void 0:m.docs)==null?void 0:u.source}}};var b,_,h;s.parameters={...s.parameters,docs:{...(b=s.parameters)==null?void 0:b.docs,source:{originalSource:`{
+  parameters: {
+    preloadedState: {
+      ...basePreloadedState,
+      pins: {
+        pins: [],
+        selectedBoardId: null,
+        selectedPins: []
+      }
+    }
+  }
+}`,...(h=(_=s.parameters)==null?void 0:_.docs)==null?void 0:h.source}}};const z=["WithSelection","Empty"];export{s as Empty,n as WithSelection,z as __namedExportsOrder,Y as default};
